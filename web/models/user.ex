@@ -23,7 +23,7 @@ defmodule Finances.User do
     model
     |> cast(params, @required_fields, @optional_fields)
     |> unique_constraint(:email)
-    |> validate_format(:email, ~r/@/)
+    |> validate_format(:email, ~r/\A[^@\s]+@([^@\s]+\.)+[^@\W]+\z/)
     |> validate_length(:password, min: 6)
   end
 end

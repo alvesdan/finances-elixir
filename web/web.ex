@@ -48,6 +48,7 @@ defmodule Finances.Web do
       use Phoenix.HTML
 
       import Finances.Router.Helpers
+      import Finances.FormHelperView
     end
   end
 

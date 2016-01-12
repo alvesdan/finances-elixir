@@ -4,7 +4,7 @@ defmodule Finances.Mixfile do
   def project do
     [app: :finances,
      version: "0.0.1",
-     elixir: "~> 1.0",
+     elixir: "~> 1.1",
      elixirc_paths: elixirc_paths(Mix.env),
      compilers: [:phoenix] ++ Mix.compilers,
      build_embedded: Mix.env == :prod,
@@ -30,12 +30,13 @@ defmodule Finances.Mixfile do
   #
   # Type `mix help deps` for examples and options.
   defp deps do
-    [{:phoenix, "~> 1.1"},
+    [{:phoenix, "~> 1.1.2"},
      {:phoenix_ecto, "~> 2.0"},
      {:postgrex, ">= 0.0.0"},
      {:phoenix_html, "~> 2.3"},
      {:phoenix_live_reload, "~> 1.0", only: :dev},
-     {:cowboy, "~> 1.0"}]
+     {:cowboy, "~> 1.0"},
+     {:comeonin, "~> 1.0"}]
   end
 
   # Aliases are shortcut or tasks specific to the current project.
