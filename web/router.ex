@@ -22,7 +22,9 @@ defmodule Finances.Router do
   end
 
   # Other scopes may use custom stacks.
-  # scope "/api", Finances do
-  #   pipe_through :api
-  # end
+  scope "/api", Finances do
+    pipe_through :api
+
+    get "/users", API.UserController, :index
+  end
 end

@@ -1,6 +1,7 @@
 defmodule Finances.User do
   use Finances.Web, :model
 
+  @derive {Poison.Encoder, only: [:name, :email]}
   schema "users" do
     field :name, :string
     field :email, :string

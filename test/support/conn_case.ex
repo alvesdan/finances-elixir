@@ -21,6 +21,7 @@ defmodule Finances.ConnCase do
       use Phoenix.ConnTest
 
       alias Finances.Repo
+      alias Finances.User
       import Ecto.Model
       import Ecto.Query, only: [from: 2]
 
