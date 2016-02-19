@@ -1,0 +1,14 @@
+db:
+  image: postgres
+  ports:
+    - "5432"
+web:
+  build: .
+  command: mix phoenix.server
+  volumes:
+    - .:/app
+    - ./.hex:/root/.hex
+  ports:
+    - "4000:4000"
+  links:
+    - db

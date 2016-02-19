@@ -15,5 +15,5 @@ config :finances, Finances.Repo,
   username: "postgres",
   password: "postgres",
   database: "finances_test",
-  hostname: "localhost",
+  hostname: "db",
   pool: Ecto.Adapters.SQL.Sandbox

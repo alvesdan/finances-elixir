@@ -4,6 +4,7 @@
 /db
 /deps
 /*.ez
+/.hex
 
 # Generate on crash by the VM
 erl_crash.dump
