@@ -26,5 +26,6 @@ defmodule Finances.Router do
     pipe_through :api
 
     get "/users", API.UserController, :index
+    get "/sessions/valid", API.SessionController, :valid
   end
 end

@@ -3,6 +3,7 @@ defmodule Finances.User do
 
   @derive {Poison.Encoder, only: [:name, :email]}
   schema "users" do
+    has_many :sessions, Finances.Session, on_delete: :delete_all
     field :name, :string
     field :email, :string
     field :crypted_password, :string
