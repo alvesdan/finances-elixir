@@ -10,6 +10,13 @@ defmodule Finances.Registration do
     |> repo.insert()
   end
 
+  def valid?(email, password) do
+    case Finances.Repo.get_by(Finances.User, %{email: email}) do
+      nil -> false
+      user -> Comeonin.Bcrypt.checkpw(password, user.crypted_password)
+    end
+  end
+
   defp hashed_password(password) do
     Comeonin.Bcrypt.hashpwsalt(password)
   end

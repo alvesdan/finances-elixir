@@ -7,4 +7,7 @@ defmodule Finances.API.SessionController do
     session = if token, do: Repo.get_by(Session, %{token: token}), else: nil
     render conn, session: session
   end
+
+  def create(conn, %{email: email, password: password}) do
+  end
 end
