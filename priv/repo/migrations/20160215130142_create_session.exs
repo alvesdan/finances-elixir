@@ -3,8 +3,8 @@ defmodule Finances.Repo.Migrations.CreateSession do
 
   def change do
     create table(:sessions) do
-      add :user_id, :string
-      add :token, :binary
+      add :user_id, :integer
+      add :token, :string
       add :expires_at, :datetime
 
       timestamps

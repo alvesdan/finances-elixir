@@ -38,5 +38,5 @@ config :finances, Finances.Repo,
   username: "postgres",
   password: "postgres",
   database: "finances_dev",
-  hostname: "db",
+  hostname: "localhost",
   pool_size: 10

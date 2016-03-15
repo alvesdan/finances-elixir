@@ -3,9 +3,7 @@ defmodule Finances.SessionTest do
 
   alias Finances.Session
 
-  @valid_datetime Ecto.DateTime.cast!("2020-10-10 12:00:00")
-
-  @valid_attrs %{expires_at: @valid_datetime, token: "some content", user_id: "1"}
+  @valid_attrs %{expires_at: "2010-04-17 14:00:00", token: "some content", user_id: 1}
   @invalid_attrs %{}
 
   test "changeset with valid attributes" do
@@ -16,5 +14,11 @@ defmodule Finances.SessionTest do
   test "changeset with invalid attributes" do
     changeset = Session.changeset(%Session{}, @invalid_attrs)
     refute changeset.valid?
+  end
+
+  test "it is able to insert a new session record" do
+    changeset = Session.changeset(%Session{}, @valid_attrs)
+
+    assert Finances.Repo.insert!(changeset)
   end
 end
