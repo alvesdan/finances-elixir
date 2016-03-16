@@ -9,18 +9,18 @@ defmodule Finances.RegistrationTest do
   test "#valid? with a valid username and password returns true" do
     Registration.create(@valid_changeset, Repo)
 
-    assert Registration.valid?("tester@example.com", "123456")
+    assert Registration.valid?("tester@example.com", "123456") == {:ok, Repo.get_by(User, %{email: @user_params[:email]})}
   end
 
   test "#valid? with and invalid username and password returns false" do
     Registration.create(@valid_changeset, Repo)
 
-    refute Registration.valid?("tester@example.com", "abcdef")
+    assert Registration.valid?("tester@example.com", "abcdef") == :invalid
   end
 
   test "#valid? witn an invalid email returns false" do
     Registration.create(@valid_changeset, Repo)
 
-    refute Registration.valid?("tester.another@example.com", "123456")
+    assert Registration.valid?("tester.another@example.com", "123456") == :invalid
   end
 end

@@ -12,8 +12,10 @@ defmodule Finances.Registration do
 
   def valid?(email, password) do
     case Finances.Repo.get_by(Finances.User, %{email: email}) do
-      nil -> false
-      user -> Comeonin.Bcrypt.checkpw(password, user.crypted_password)
+      nil -> :invalid
+      user ->
+        if Comeonin.Bcrypt.checkpw(password, user.crypted_password),
+          do: {:ok, user}, else: :invalid
     end
   end
 

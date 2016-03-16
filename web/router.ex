@@ -18,7 +18,7 @@ defmodule Finances.Router do
 
     get "/", PageController, :index
 
-    resources "/users", UserController, except: [:index]
+    resources "/users", UserController, only: [:new, :create]
   end
 
   # Other scopes may use custom stacks.
@@ -27,5 +27,6 @@ defmodule Finances.Router do
 
     get "/users", API.UserController, :index
     get "/sessions/valid", API.SessionController, :valid
+    post "/sessions/create", API.SessionController, :create
   end
 end

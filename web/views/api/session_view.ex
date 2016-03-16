@@ -9,8 +9,17 @@ defmodule Finances.API.SessionView do
 
   def render("valid.json", %{ session: session }) do
     cond do
-      Session.valid?(session) -> %{session: session, user: Repo.preload(session, :user).user}
+      Session.valid?(session) ->
+        %{session: session, user: Repo.preload(session, :user).user}
       true -> %{session: "invalid"}
     end
+  end
+
+  def render("create.json", %{ session: nil }) do
+    %{session: "invalid"}
+  end
+
+  def render("create.json", %{ session: session }) do
+    %{session: session, user: Repo.preload(session, :user).user}
   end
 end
