@@ -10,6 +10,6 @@ defmodule Finances.Repo.Migrations.CreateWallet do
       timestamps
     end
 
-    create index(:wallets, [:user_id, :name])
+    create index(:wallets, [:user_id, :name], unique: true)
   end
 end

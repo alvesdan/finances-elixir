@@ -20,7 +20,7 @@ defmodule Finances.Registration do
   end
 
   defp hashed_password(password) do
-    Comeonin.Bcrypt.hashpwsalt(password)
+    Comeonin.Bcrypt.hashpwsalt(password || "")
   end
 end
 
