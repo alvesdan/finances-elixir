@@ -18,8 +18,13 @@ defmodule Finances.API.SessionController do
 
     case Registration.valid?(email, password) do
       {:ok, user} ->
-        session = Session.find_or_create_for(user)
-        render(conn, session: session)
+        case Session.find_or_create_for(user) do
+          {:ok, session} ->
+            conn
+            |> put_status(:created)
+            |> render(session: session)
+          {:error, _changeset} -> render(conn, session: nil)
+        end
       :invalid -> render(conn, session: nil)
     end
   end

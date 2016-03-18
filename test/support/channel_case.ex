@@ -23,6 +23,7 @@ defmodule Finances.ChannelCase do
       alias Finances.Repo
       import Ecto.Model
       import Ecto.Query, only: [from: 2]
+      import GenericTestHelper
 
 
       # The default endpoint for testing

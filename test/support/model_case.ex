@@ -20,6 +20,7 @@ defmodule Finances.ModelCase do
       import Ecto.Model
       import Ecto.Query, only: [from: 2]
       import Finances.ModelCase
+      import GenericTestHelper
     end
   end
 

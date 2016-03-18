@@ -26,6 +26,7 @@ defmodule Finances.ConnCase do
       import Ecto.Query, only: [from: 2]
 
       import Finances.Router.Helpers
+      import GenericTestHelper
 
       # The default endpoint for testing
       @endpoint Finances.Endpoint

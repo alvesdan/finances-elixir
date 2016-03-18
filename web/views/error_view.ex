@@ -1,6 +1,10 @@
 defmodule Finances.ErrorView do
   use Finances.Web, :view
 
+  def render("401.json", _assigns) do
+    %{ error: "Unauthorized" }
+  end
+
   def render("404.html", _assigns) do
     "Page not found"
   end

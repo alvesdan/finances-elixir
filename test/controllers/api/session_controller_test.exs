@@ -55,7 +55,7 @@ defmodule Finances.API.SessionControllerTest do
 
   test "POST /create with valid credentials" do
     conn = post conn(), "api/sessions/create", format: "json", email: "tester@example.com", password: "123456"
-    body = json_response(conn, 200)
+    body = json_response(conn, 201)
 
     assert get_in(body, ["user", "name"]) == "Tester"
     session_datetime = Ecto.DateTime.cast! get_in(body, ["session", "expires_at"])

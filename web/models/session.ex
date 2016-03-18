@@ -43,7 +43,10 @@ defmodule Finances.Session do
   end
 
   def find_or_create_for(user) do
-    find_valid_for(user) || create_for(user)
+    case find_valid_for(user) do
+      nil -> create_for(user)
+      session -> {:ok, session}
+    end
   end
 
   def create_for(user) do
@@ -52,10 +55,7 @@ defmodule Finances.Session do
     session = Ecto.build_assoc(
       user, :sessions, %{token: valid_token, expires_at: expires_at})
 
-    case Finances.Repo.insert(session) do
-      {:ok, session} -> session
-      {:error, changeset} -> changeset.errors
-    end
+    Finances.Repo.insert(session)
   end
 
   defp generate_token_for(user) do
