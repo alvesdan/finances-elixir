@@ -1,5 +1,6 @@
 defmodule Finances.Wallet do
   use Finances.Web, :model
+  import Ecto.Query
 
   @derive {Poison.Encoder, only: [:id, :name, :currency]}
   schema "wallets" do
@@ -24,5 +25,9 @@ defmodule Finances.Wallet do
     |> cast(params, @required_fields, @optional_fields)
     |> unique_constraint(:name, name: :wallets_user_id_name_index)
     |> validate_length(:name, min: 2)
+  end
+
+  def for_user(user) do
+    __MODULE__ |> where(user_id: ^user.id) |> Finances.Repo.all
   end
 end

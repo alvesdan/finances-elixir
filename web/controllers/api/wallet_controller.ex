@@ -6,7 +6,7 @@ defmodule Finances.API.WalletController do
   plug :scrub_params, "wallet" when action in [:create, :update]
 
   def index(conn, _params) do
-    wallets = Repo.all(Wallet)
+    wallets = Wallet.for_user(conn.assigns[:current_user])
     render(conn, "index.json", wallets: wallets)
   end
 

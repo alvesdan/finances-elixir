@@ -11,15 +11,27 @@ defmodule Finances.API.WalletControllerTest do
   end
 
   test "lists all entries on index", context do
+    wallet = Wallet.changeset(
+      %Wallet{}, %{
+        name: "Test Wallet",
+        currency: "EUR",
+        user_id: Repo.get_by(Finances.Session, %{token: context[:token]}).user_id
+    }) |> Repo.insert!
+
+    %Wallet{ name: "Another Wallet", currency: "EUR", user_id: 2 } |> Repo.insert!
+
     conn = get conn(), "/api/wallets", token: context[:token]
-    assert json_response(conn, 200) == %{"wallets" => []}
+    assert json_response(conn, 200) == %{"wallets" => [
+          %{"name" => "Test Wallet", "currency" => "EUR", "id" => wallet.id}
+        ]}
   end
 
   test "shows chosen resource", context do
     wallet = Repo.insert! %Wallet{name: "Test wallet", currency: "EUR"}
     conn = get conn, "/api/wallets/#{wallet.id}", token: context[:token]
 
-    assert json_response(conn, 200)["wallet"] == %{ "name" => wallet.name, "currency" => "EUR", "id" => wallet.id }
+    assert json_response(conn, 200)["wallet"] == %{
+      "name" => wallet.name, "currency" => "EUR", "id" => wallet.id }
   end
 
   test "does not show resource and instead throw error when id is nonexistent", context do
