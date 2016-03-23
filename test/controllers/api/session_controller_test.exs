@@ -62,4 +62,11 @@ defmodule Finances.API.SessionControllerTest do
     now = Ecto.DateTime.from_erl(:calendar.local_time)
     assert Ecto.DateTime.compare(now, session_datetime) == :lt
   end
+
+  test "POST /create without credentials" do
+    conn = post conn(), "api/sessions/create", format: "json"
+    body = json_response(conn, 200)
+
+    assert body["session"] == "invalid"
+  end
 end
