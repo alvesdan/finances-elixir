@@ -27,7 +27,7 @@ defmodule Finances.Wallet do
     |> validate_length(:name, min: 2)
   end
 
-  def for_user(user) do
-    __MODULE__ |> where(user_id: ^user.id) |> Finances.Repo.all
+  def for_user(%Finances.User{id: user_id}) do
+    __MODULE__ |> where(user_id: ^user_id) |> Finances.Repo.all
   end
 end
