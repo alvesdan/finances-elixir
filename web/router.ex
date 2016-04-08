@@ -40,6 +40,8 @@ defmodule Finances.Router do
     pipe_through [:api, :auth]
 
     # Wallets
-    resources "/wallets", API.WalletController
+    resources "/wallets", API.WalletController do
+      resources "/categories", API.CategoryController
+    end
   end
 end
