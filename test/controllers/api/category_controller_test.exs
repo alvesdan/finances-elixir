@@ -81,4 +81,19 @@ defmodule Finances.API.CategoryControllerTest do
     assert response(conn, 204)
     refute Repo.get(Category, category.id)
   end
+
+  test "it validates wallet ownership", context do
+    other_user = create_test_user("another@example.com")
+    other_wallet = Wallet.changeset(
+      %Wallet{}, %{
+        name: "Test Wallet",
+        currency: "EUR",
+        user_id: other_user.id
+    }) |> Repo.insert!
+    category = test_category(other_wallet)
+
+    conn = delete conn, "/api/wallets/#{other_wallet.id}/categories/#{category.id}", token: context[:token]
+    assert response(conn, 401)
+    assert Repo.get(Category, category.id)
+  end
 end

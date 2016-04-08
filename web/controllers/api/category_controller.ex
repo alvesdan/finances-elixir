@@ -1,6 +1,9 @@
 defmodule Finances.API.CategoryController do
   use Finances.Web, :controller
   alias Finances.Category
+  import Finances.API.APIController
+
+  plug :validate_wallet_owner
 
   def index(conn, params) do
     categories = Category.for_wallet(wallet(params["wallet_id"]))
@@ -50,9 +53,5 @@ defmodule Finances.API.CategoryController do
     Repo.delete!(category)
 
     send_resp(conn, :no_content, "")
-  end
-
-  defp wallet(wallet_id) do
-    Repo.get(Finances.Wallet, wallet_id)
   end
 end

@@ -14,6 +14,7 @@ defmodule Finances.Plugs.Authenticate do
       {:error, _message} ->
         conn
         |> halt
+        |> put_status(:unauthorized)
         |> render(Finances.ErrorView, "401.json")
     end
   end

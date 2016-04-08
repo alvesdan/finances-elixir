@@ -1,10 +1,10 @@
 defmodule GenericTestHelper do
   alias Finances.{Repo, User, Registration, Session}
 
-  def create_test_user do
+  def create_test_user(email \\ "tester@example.com") do
     user_params = %{
       name: "Tester",
-      email: "tester@example.com",
+      email: email,
       password: "123456"
     }
     changeset = User.changeset(%User{}, user_params)
