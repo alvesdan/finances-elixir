@@ -21,6 +21,7 @@
   "poolboy": {:hex, :poolboy, "1.5.1"},
   "postgrex": {:hex, :postgrex, "0.11.1"},
   "ranch": {:hex, :ranch, "1.2.1"},
+  "redix": {:hex, :redix, "0.3.6"},
   "ssl_verify_hostname": {:hex, :ssl_verify_hostname, "1.0.6"},
   "timex": {:hex, :timex, "2.1.1"},
   "timex_ecto": {:hex, :timex_ecto, "0.8.0"},
