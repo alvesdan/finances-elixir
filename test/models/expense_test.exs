@@ -3,7 +3,7 @@ defmodule Finances.ExpenseTest do
 
   alias Finances.Expense
 
-  @valid_attrs %{}
+  @valid_attrs %{wallet_id: 1, category_id: 1, amount: 1, spent_at: "2016-04-10 10:00:00", notes: "Test"}
   @invalid_attrs %{}
 
   test "changeset with valid attributes" do
