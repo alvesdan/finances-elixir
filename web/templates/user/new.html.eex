@@ -1,4 +1,4 @@
-<h1>New User</h1>
+<h1><%= translate("users.new", "New User") %></h1>
 
 <%= form_for @changeset, "/users", fn f -> %>
   <%= if f.errors != [] do %>

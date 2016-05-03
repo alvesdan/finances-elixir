@@ -5,6 +5,7 @@
 /deps
 /*.ez
 /.hex
+/**/*.swp
 
 # Generate on crash by the VM
 erl_crash.dump

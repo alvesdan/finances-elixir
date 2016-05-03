@@ -17,3 +17,9 @@ config :finances, Finances.Repo,
   database: "finances_test",
   hostname: "localhost",
   pool: Ecto.Adapters.SQL.Sandbox
+
+config :extranslate, :redix,
+  host: "127.0.0.1",
+  password: nil,
+  size: 10,
+  max_overflow: 5
