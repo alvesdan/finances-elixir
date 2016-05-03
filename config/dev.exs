@@ -41,7 +41,7 @@ config :finances, Finances.Repo,
   hostname: "localhost",
   pool_size: 10
 
-config :finances, :redix,
+config :extranslate, :redix,
   host: "127.0.0.1",
   password: nil,
   size: 10,

@@ -13,7 +13,6 @@ defmodule Finances do
       worker(Finances.Repo, []),
       # Here you could define other workers and supervisors as children
       # worker(Finances.Worker, [arg1, arg2, arg3]),
-      supervisor(Finances.Redix, [])
     ]
 
     # See http://elixir-lang.org/docs/stable/elixir/Supervisor.html

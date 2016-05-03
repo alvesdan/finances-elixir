@@ -1,0 +1,1 @@
+<h1><%= translate("home_page_title", "Hi %{name}!", %{name: "Daniel"}) %></h1>
