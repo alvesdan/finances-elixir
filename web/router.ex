@@ -29,8 +29,6 @@ defmodule Finances.Router do
   scope "/api", Finances do
     pipe_through :api
 
-
-
     # Sessions
     get  "/sessions/valid",  API.SessionController, :valid
     post "/sessions/create", API.SessionController, :create
@@ -42,6 +40,7 @@ defmodule Finances.Router do
     # Wallets
     resources "/wallets", API.WalletController do
       resources "/categories", API.CategoryController
+      resources "/expenses", API.ExpenseController
     end
   end
 end
