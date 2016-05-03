@@ -37,7 +37,7 @@ defmodule Finances.Mixfile do
      {:phoenix_live_reload, "~> 1.0", only: :dev},
      {:cowboy, "~> 1.0"},
      {:comeonin, "~> 1.0"},
-     {:extranslate, path: "../extranslate"}]
+     {:extranslate, git: "https://github.com/alvesdan/extranslate.git"}]
   end
 
   # Aliases are shortcut or tasks specific to the current project.
