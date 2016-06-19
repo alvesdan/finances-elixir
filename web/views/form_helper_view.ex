@@ -18,7 +18,7 @@ defmodule Finances.FormHelperView do
           default = Regex.replace(~r/%\{#{k}\}/, acc, to_string(v))
           translate("errors|" <> text, default, %{k => v})
         end)
-      _ -> translate(message, message)
+      _ -> translate("errors|" <> message, message)
     end
   end
 end
