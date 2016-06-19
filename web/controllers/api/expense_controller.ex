@@ -32,4 +32,25 @@ defmodule Finances.API.ExpenseController do
         |> render(Finances.ChangesetView, "error.json", changeset: changeset)
     end
   end
+
+  def update(conn, %{"id" => id, "expense" => expense_params, "wallet_id" => wallet_id}) do
+    expense = Repo.get_by!(Expense, %{id: id, wallet_id: wallet_id})
+    changeset = Expense.changeset(expense, expense_params)
+
+    case Repo.update(changeset) do
+      {:ok, expense} ->
+        render(conn, "show.json", expense: expense)
+      {:error, changeset} ->
+        conn
+        |> put_status(:unprocessable_entity)
+        |> render(Finances.ChangesetView, "error.json", changeset: changeset)
+    end
+  end
+
+  def delete(conn, %{"id" => id, "wallet_id" => wallet_id}) do
+    expense = Repo.get_by!(Expense, %{id: id, wallet_id: wallet_id})
+    Repo.delete!(expense)
+
+    send_resp(conn, :no_content, "")
+  end
 end

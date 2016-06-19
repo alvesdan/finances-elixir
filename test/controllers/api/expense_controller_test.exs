@@ -57,4 +57,24 @@ defmodule ExpenseControllerTest do
     assert body["expense"]["id"]
     assert Repo.get_by(Expense, @valid_attrs)
   end
+
+  test "updates and renders chosen resource when data is valid", context do
+    wallet_id = context[:wallet].id
+    expense = create_test_expense context[:wallet], context[:category]
+
+    conn = put conn, "/api/wallets/#{wallet_id}/expenses/#{expense.id}",
+      expense: %{notes: "Updated expense"}, token: context[:token]
+    body = json_response(conn, 200)
+
+    assert body["expense"]["id"]
+    assert Repo.get_by(Expense, %{notes: "Updated expense"})
+  end
+
+  test "deletes chosen resource", context do
+    wallet_id = context[:wallet].id
+    expense = create_test_expense context[:wallet], context[:category]
+    conn = delete conn, "/api/wallets/#{wallet_id}/expenses/#{expense.id}", token: context[:token]
+    assert response(conn, 204)
+    refute Repo.get(Expense, expense.id)
+  end
 end
