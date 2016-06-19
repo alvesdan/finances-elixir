@@ -2,7 +2,7 @@ defmodule Finances.Expense do
   use Finances.Web, :model
   import Ecto.Query
 
-  @derive {Poison.Encoder, only: [:id, :amount, :spent_at, :notes]}
+  @derive {Poison.Encoder, only: [:id, :amount, :spent_at, :notes, :category_id]}
   schema "expenses" do
     belongs_to :wallet, Finances.Wallet
     belongs_to :category, Finances.Category
@@ -12,8 +12,8 @@ defmodule Finances.Expense do
     timestamps
   end
 
-  @required_fields ~w(wallet_id category_id amount spent_at notes)
-  @optional_fields ~w()
+  @required_fields ~w(wallet_id category_id amount spent_at)
+  @optional_fields ~w(notes)
 
   @doc """
   Creates a changeset based on the `model` and `params`.

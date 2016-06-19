@@ -2,6 +2,8 @@ defmodule ExpenseControllerTest do
   use Finances.ConnCase
   alias Finances.{Wallet, Category, Expense}
 
+  @valid_attrs %{amount: 5, spent_at: "2016-04-17 14:00:00"}
+
   setup do
     session = create_valid_session_for_test_user
     wallet = Wallet.changeset(
@@ -40,7 +42,19 @@ defmodule ExpenseControllerTest do
       "id" => expense.id,
       "amount" => "10.5",
       "spent_at" => "2016-04-17T14:00:00Z",
-      "notes" => "Test Expense"
+      "notes" => "Test Expense",
+      "category_id" => context[:category].id
     }]}
+  end
+
+  test "creates and renders resource when data is valid", context do
+    wallet_id = context[:wallet].id
+    category_id = context[:category].id
+    conn = post(conn, "/api/wallets/#{wallet_id}/expenses",
+      expense: Map.put(@valid_attrs, :category_id, category_id), token: context[:token])
+    body = json_response(conn, 201)
+
+    assert body["expense"]["id"]
+    assert Repo.get_by(Expense, @valid_attrs)
   end
 end
