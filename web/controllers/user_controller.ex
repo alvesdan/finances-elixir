@@ -1,8 +1,10 @@
 defmodule Finances.UserController do
   use Finances.Web, :controller
   alias Finances.User
+  import Finances.HTMLController
 
   plug :scrub_params, "user" when action in [:create, :update]
+  plug :add_body_class, "user"
 
   def new(conn, _params) do
     changeset = User.changeset(%User{})
@@ -18,7 +20,8 @@ defmodule Finances.UserController do
         |> put_flash(:info, "User created successfully.")
         |> redirect(to: user_path(conn, :new))
       {:error, changeset} ->
-        render(conn, "new.html", changeset: changeset)
+        conn
+        |> render("new.html", changeset: changeset)
     end
   end
 end

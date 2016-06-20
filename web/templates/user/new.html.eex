@@ -1,4 +1,4 @@
-<h1><%= translate("users.new", "New User") %></h1>
+<h1><%= translate("users.new", "Create your account") %></h1>
 
 <%= form_for @changeset, "/users", fn f -> %>
   <%= if f.errors != [] do %>
@@ -12,9 +12,9 @@
     </div>
   <% end %>
 
-  <p><%= text_input f, :name, class: "form-control", placeholder: "name" %></p>
-  <p><%= text_input f, :email, class: "form-control", placeholder: "email" %></p>
-  <p><%= password_input f, :password, class: "form-control", placeholder: "password" %></p>
-  <p><%= submit "Submit" %></p>
+  <p><%= text_input f, :name, class: "form-control", placeholder: "Name" %></p>
+  <p><%= text_input f, :email, class: "form-control", placeholder: "Email" %></p>
+  <p><%= password_input f, :password, class: "form-control", placeholder: "Password" %></p>
+  <p><%= submit "Submit", class: "btn btn-success btn-block" %></p>
 <% end %>
 

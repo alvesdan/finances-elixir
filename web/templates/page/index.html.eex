@@ -1,1 +1,19 @@
-<h1><%= translate("home_page_title", "Hi %{name}!", %{name: "Daniel"}) %></h1>
+<h1>Finances</h1>
+<p class="lead">Your own personal finances API.
+The user interface is up to you <span class="tongue">:P</span></p>
+
+<p><a href="<%= user_path(@conn, :new) %>" class="btn btn-success btn-lg">Create your account now!</a></p>
+
+<hr />
+
+<h2>How it works?</h2>
+<p>Finances will provide an API where you can mange your personal finances.
+The only thing you have to to is create the interface. It was created
+using <a href="http://elixir-lang.org">Elixir</a> and is
+<a href="https://github.com/alvesdan/finances-elixir">open source</a>.
+Please help improve the platform contributing and let's have fun coding.</p>
+
+<h2>Why Finances was created?</h2>
+<p>To be honest the main reason was to study Elixir. I was very interested in
+hacking something using the language and this API looked as the
+right thing to start.</p>
