@@ -20,7 +20,7 @@ defmodule Finances.API.SessionControllerTest do
   end
 
   test "GET /valid without valid session it returns invalid" do
-    conn = get conn(), "/api/sessions/valid", format: "json"
+    conn = get build_conn(), "/api/sessions/valid", format: "json"
     body = json_response(conn, 200) |> Poison.encode!
 
     assert Regex.match?(~r/"session":"invalid"/, body)
@@ -29,7 +29,7 @@ defmodule Finances.API.SessionControllerTest do
   test "GET /valid with a valid session it returns user basic info and session expiration time" do
     create_session(@valid_datetime)
 
-    conn = get conn(), "api/sessions/valid", format: "json", token: @valid_token
+    conn = get build_conn(), "api/sessions/valid", format: "json", token: @valid_token
     body = json_response(conn, 200)
 
     session_datetime = Ecto.DateTime.cast! get_in(body, ["session", "expires_at"])
@@ -40,21 +40,21 @@ defmodule Finances.API.SessionControllerTest do
   test "GET /valid with an invalid session it returns invalid" do
     create_session(@invalid_datetime)
 
-    conn = get conn(), "api/sessions/valid", format: "json", token: @valid_token
+    conn = get build_conn(), "api/sessions/valid", format: "json", token: @valid_token
     body = json_response(conn, 200) |> Poison.encode!
 
     assert Regex.match?(~r/"session":"invalid"/, body)
   end
 
   test "POST /create with invalid credentials" do
-    conn = post conn(), "api/sessions/create", format: "json", email: "tester@example.com", password: "wrong"
+    conn = post build_conn(), "api/sessions/create", format: "json", email: "tester@example.com", password: "wrong"
     body = json_response(conn, 200) |> Poison.encode!
 
     assert Regex.match?(~r/"session":"invalid"/, body)
   end
 
   test "POST /create with valid credentials" do
-    conn = post conn(), "api/sessions/create", format: "json", email: "tester@example.com", password: "123456"
+    conn = post build_conn(), "api/sessions/create", format: "json", email: "tester@example.com", password: "123456"
     body = json_response(conn, 201)
 
     assert get_in(body, ["user", "name"]) == "Tester"
@@ -64,7 +64,7 @@ defmodule Finances.API.SessionControllerTest do
   end
 
   test "POST /create without credentials" do
-    conn = post conn(), "api/sessions/create", format: "json"
+    conn = post build_conn(), "api/sessions/create", format: "json"
     body = json_response(conn, 200)
 
     assert body["session"] == "invalid"

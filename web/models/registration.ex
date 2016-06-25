@@ -1,5 +1,6 @@
 defmodule Finances.Registration do
   import Ecto.Changeset, only: [put_change: 3]
+  import Ecto.Query
 
   def create(changeset, repo) do
     crypted_password = hashed_password(
@@ -11,7 +12,7 @@ defmodule Finances.Registration do
   end
 
   def valid?(email, password) do
-    case Finances.Repo.get_by(Finances.User, %{email: email}) do
+    case Finances.Repo.get_by(Finances.User, email: email) do
       nil -> :invalid
       user ->
         if Comeonin.Bcrypt.checkpw(password, user.crypted_password),

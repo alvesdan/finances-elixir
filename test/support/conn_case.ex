@@ -34,10 +34,6 @@ defmodule Finances.ConnCase do
   end
 
   setup tags do
-    unless tags[:async] do
-      Ecto.Adapters.SQL.restart_test_transaction(Finances.Repo, [])
-    end
-
-    :ok
+    :ok = Ecto.Adapters.SQL.Sandbox.checkout(Finances.Repo)
   end
 end

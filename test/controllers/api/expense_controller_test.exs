@@ -41,7 +41,7 @@ defmodule ExpenseControllerTest do
     assert json_response(conn, 200) == %{"expenses" => [%{
       "id" => expense.id,
       "amount" => "10.5",
-      "spent_at" => "2016-04-17T14:00:00Z",
+      "spent_at" => "2016-04-17T14:00:00",
       "notes" => "Test Expense",
       "category_id" => context[:category].id
     }]}

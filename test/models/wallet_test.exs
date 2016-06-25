@@ -5,7 +5,6 @@ defmodule Finances.WalletTest do
 
   @valid_attrs %{currency: "EUR", name: "Test wallet", user_id: 1}
   @invalid_attrs %{}
-  @test_user create_test_user
 
   test "changeset with valid attributes" do
     changeset = Wallet.changeset(%Wallet{}, @valid_attrs)

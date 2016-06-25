@@ -5,6 +5,6 @@ defmodule Finances.PageController do
   def index(conn, _params) do
     conn
     |> add_body_class("home")
-    |> render "index.html"
+    |> render("index.html")
   end
 end
