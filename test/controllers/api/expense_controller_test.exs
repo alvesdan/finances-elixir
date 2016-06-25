@@ -37,7 +37,7 @@ defmodule ExpenseControllerTest do
     expense = create_test_expense context[:wallet], context[:category]
 
     wallet_id = context[:wallet].id
-    conn = get conn(), "/api/wallets/#{wallet_id}/expenses", token: context[:token]
+    conn = get build_conn(), "/api/wallets/#{wallet_id}/expenses", token: context[:token]
     assert json_response(conn, 200) == %{"expenses" => [%{
       "id" => expense.id,
       "amount" => "10.5",
@@ -50,7 +50,7 @@ defmodule ExpenseControllerTest do
   test "creates and renders resource when data is valid", context do
     wallet_id = context[:wallet].id
     category_id = context[:category].id
-    conn = post(conn, "/api/wallets/#{wallet_id}/expenses",
+    conn = post(build_conn, "/api/wallets/#{wallet_id}/expenses",
       expense: Map.put(@valid_attrs, :category_id, category_id), token: context[:token])
     body = json_response(conn, 201)
 
@@ -62,7 +62,7 @@ defmodule ExpenseControllerTest do
     wallet_id = context[:wallet].id
     expense = create_test_expense context[:wallet], context[:category]
 
-    conn = put conn, "/api/wallets/#{wallet_id}/expenses/#{expense.id}",
+    conn = put build_conn, "/api/wallets/#{wallet_id}/expenses/#{expense.id}",
       expense: %{notes: "Updated expense"}, token: context[:token]
     body = json_response(conn, 200)
 
@@ -73,7 +73,7 @@ defmodule ExpenseControllerTest do
   test "deletes chosen resource", context do
     wallet_id = context[:wallet].id
     expense = create_test_expense context[:wallet], context[:category]
-    conn = delete conn, "/api/wallets/#{wallet_id}/expenses/#{expense.id}", token: context[:token]
+    conn = delete build_conn, "/api/wallets/#{wallet_id}/expenses/#{expense.id}", token: context[:token]
     assert response(conn, 204)
     refute Repo.get(Expense, expense.id)
   end

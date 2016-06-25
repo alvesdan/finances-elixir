@@ -27,26 +27,26 @@ defmodule Finances.API.CategoryControllerTest do
 
   test "lists all entries on index", context do
     wallet_id = context[:wallet].id
-    conn = get conn(), "/api/wallets/#{wallet_id}/categories", token: context[:token]
+    conn = get build_conn(), "/api/wallets/#{wallet_id}/categories", token: context[:token]
     assert json_response(conn, 200) == %{"categories" => []}
   end
 
   test "shows chosen resource", context do
     category = test_category(context[:wallet])
-    conn = get conn(), "/api/wallets/#{category.wallet_id}/categories/#{category.id}", token: context[:token]
+    conn = get build_conn(), "/api/wallets/#{category.wallet_id}/categories/#{category.id}", token: context[:token]
 
     assert json_response(conn, 200)["category"] == %{ "name" => category.name, "id" => category.id }
   end
 
   test "does not show resource and instead throw error when id is nonexistent", context do
     assert_error_sent 404, fn ->
-      get conn, "/api/wallets/#{context[:wallet].id}/categories/-1", token: context[:token]
+      get build_conn, "/api/wallets/#{context[:wallet].id}/categories/-1", token: context[:token]
     end
   end
 
   test "creates and renders resource when data is valid", context do
     wallet_id = context[:wallet].id
-    conn = post conn, "/api/wallets/#{wallet_id}/categories", category: @valid_attrs, token: context[:token]
+    conn = post build_conn, "/api/wallets/#{wallet_id}/categories", category: @valid_attrs, token: context[:token]
     body = json_response(conn, 201)
 
     assert body["category"]["id"]
@@ -55,14 +55,14 @@ defmodule Finances.API.CategoryControllerTest do
 
   test "does not create resource and renders errors when data is invalid", context do
     wallet_id = context[:wallet].id
-    conn = post conn, "/api/wallets/#{wallet_id}/categories", category: @invalid_attrs, token: context[:token]
+    conn = post build_conn, "/api/wallets/#{wallet_id}/categories", category: @invalid_attrs, token: context[:token]
     assert json_response(conn, 422)["errors"] != %{}
   end
 
   test "updates and renders chosen resource when data is valid", context do
     wallet_id = context[:wallet].id
     category = test_category(context[:wallet])
-    conn = put conn, "/api/wallets/#{wallet_id}/categories/#{category.id}", category: @valid_attrs, token: context[:token]
+    conn = put build_conn, "/api/wallets/#{wallet_id}/categories/#{category.id}", category: @valid_attrs, token: context[:token]
     assert json_response(conn, 200)["category"]["id"]
     assert Repo.get_by(Category, @valid_attrs)
   end
@@ -70,14 +70,14 @@ defmodule Finances.API.CategoryControllerTest do
   test "does not update chosen resource and renders errors when data is invalid", context do
     wallet_id = context[:wallet].id
     category = test_category(context[:wallet])
-    conn = put conn, "/api/wallets/#{wallet_id}/categories/#{category.id}", category: @invalid_attrs, token: context[:token]
+    conn = put build_conn, "/api/wallets/#{wallet_id}/categories/#{category.id}", category: @invalid_attrs, token: context[:token]
     assert json_response(conn, 422)["errors"] != %{}
   end
 
   test "deletes chosen resource", context do
     wallet_id = context[:wallet].id
     category = test_category(context[:wallet])
-    conn = delete conn, "/api/wallets/#{wallet_id}/categories/#{category.id}", token: context[:token]
+    conn = delete build_conn, "/api/wallets/#{wallet_id}/categories/#{category.id}", token: context[:token]
     assert response(conn, 204)
     refute Repo.get(Category, category.id)
   end
@@ -92,7 +92,7 @@ defmodule Finances.API.CategoryControllerTest do
     }) |> Repo.insert!
     category = test_category(other_wallet)
 
-    conn = delete conn, "/api/wallets/#{other_wallet.id}/categories/#{category.id}", token: context[:token]
+    conn = delete build_conn, "/api/wallets/#{other_wallet.id}/categories/#{category.id}", token: context[:token]
     assert response(conn, 401)
     assert Repo.get(Category, category.id)
   end
