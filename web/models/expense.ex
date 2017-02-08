@@ -12,8 +12,7 @@ defmodule Finances.Expense do
     timestamps
   end
 
-  @required_fields ~w(wallet_id category_id amount spent_at)
-  @optional_fields ~w(notes)
+  @required_fields [:wallet_id, :category_id, :amount, :spent_at]
 
   @doc """
   Creates a changeset based on the `model` and `params`.
@@ -21,9 +20,10 @@ defmodule Finances.Expense do
   If no params are provided, an invalid changeset is returned
   with no validation performed.
   """
-  def changeset(model, params \\ :empty) do
+  def changeset(model, params \\ %{}) do
     model
-    |> cast(params, @required_fields, @optional_fields)
+    |> cast(params, @required_fields ++ [:notes])
+    |> validate_required(@required_fields)
   end
 
   def for_wallet(%Finances.Wallet{id: wallet_id}) do

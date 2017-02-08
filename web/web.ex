@@ -50,7 +50,6 @@ defmodule Finances.Web do
 
       import Finances.Router.Helpers
       import Finances.FormHelperView
-      import Finances.Extranslate
     end
   end
 

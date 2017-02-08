@@ -22,7 +22,7 @@ defmodule Finances.ConnCase do
 
       alias Finances.Repo
       alias Finances.User
-      import Ecto.Model
+      import Ecto
       import Ecto.Query, only: [from: 2]
 
       import Finances.Router.Helpers

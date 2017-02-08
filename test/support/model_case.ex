@@ -17,7 +17,7 @@ defmodule Finances.ModelCase do
   using do
     quote do
       alias Finances.Repo
-      import Ecto.Model
+      import Ecto
       import Ecto.Query, only: [from: 2]
       import Finances.ModelCase
       import GenericTestHelper

@@ -19,7 +19,7 @@ defmodule Finances.Mixfile do
   def application do
     [mod: {Finances, []},
      applications: [:phoenix, :phoenix_html, :cowboy, :logger,
-                    :phoenix_ecto, :postgrex, :extranslate]]
+                    :phoenix_ecto, :postgrex]]
   end
 
   # Specifies which paths to compile per environment.
@@ -30,15 +30,13 @@ defmodule Finances.Mixfile do
   #
   # Type `mix help deps` for examples and options.
   defp deps do
-    [{:phoenix, "~> 1.2.0"},
-     {:phoenix_ecto, "~> 3.0"},
+    [{:phoenix, "~> 1.2"},
+     {:phoenix_ecto, "~> 3.2"},
      {:postgrex, ">= 0.0.0"},
      {:phoenix_html, "~> 2.3"},
      {:phoenix_live_reload, "~> 1.0", only: :dev},
      {:cowboy, "~> 1.0"},
-     {:comeonin, "~> 2.3"},
-     {:extranslate, git: "https://github.com/alvesdan/extranslate.git"},
-     {:abex, path: '../abex'}]
+     {:comeonin, "~> 2.3"}]
   end
 
   # Aliases are shortcut or tasks specific to the current project.

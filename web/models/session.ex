@@ -10,8 +10,7 @@ defmodule Finances.Session do
     timestamps
   end
 
-  @required_fields ~w(user_id token expires_at)
-  @optional_fields ~w()
+  @required_fields [:user_id, :token, :expires_at]
 
   @doc """
   Creates a changeset based on the `model` and `params`.
@@ -19,9 +18,10 @@ defmodule Finances.Session do
   If no params are provided, an invalid changeset is returned
   with no validation performed.
   """
-  def changeset(model, params \\ :empty) do
+  def changeset(model, params \\ %{}) do
     model
-    |> cast(params, @required_fields, @optional_fields)
+    |> cast(params, @required_fields)
+    |> validate_required(@required_fields)
   end
 
   def valid?(nil) do
@@ -71,7 +71,7 @@ defmodule Finances.Session do
   defp generate_expires_at do
     :calendar.local_time
       |> :calendar.datetime_to_gregorian_seconds
-      |> +(21_600)
+      |> Kernel.+(21_600)
       |> :calendar.gregorian_seconds_to_datetime
       |> Ecto.DateTime.from_erl
   end

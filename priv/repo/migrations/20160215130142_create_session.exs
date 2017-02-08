@@ -5,7 +5,7 @@ defmodule Finances.Repo.Migrations.CreateSession do
     create table(:sessions) do
       add :user_id, :integer
       add :token, :string
-      add :expires_at, :datetime
+      add :expires_at, :utc_datetime
 
       timestamps
     end

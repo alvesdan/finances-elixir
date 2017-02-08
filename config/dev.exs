@@ -40,9 +40,3 @@ config :finances, Finances.Repo,
   database: "finances_dev",
   hostname: "localhost",
   pool_size: 10
-
-config :extranslate, :redix,
-  host: "127.0.0.1",
-  password: nil,
-  size: 10,
-  max_overflow: 5

@@ -1,4 +1,4 @@
-<h1><%= translate("users.new", "Create your account") %></h1>
+<h1>Create your account</h1>
 
 <%= form_for @changeset, "/users", fn f -> %>
   <%= if f.errors != [] do %>

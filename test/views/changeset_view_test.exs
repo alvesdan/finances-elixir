@@ -3,11 +3,7 @@ defmodule ChangesetViewTest do
 
   import Phoenix.View
 
-  test "renders translated error messages" do
-    Extranslate.put_locale "pt-BR"
-    Extranslate.Redix.set("extr|pt-BR|errors|can't be blank", "é obrigatório")
-    Extranslate.Redix.set("extr|pt-BR|errors|should be at most %{count} characters", "não pode ultrapassar %{count} caracteres")
-
+  test "renders error messages" do
     params = %{changeset: %{errors: [
       name: "can't be blank",
       message: {
@@ -20,8 +16,8 @@ defmodule ChangesetViewTest do
       Finances.ChangesetView,
       "error.json", params) == Poison.encode!(%{
         errors: %{
-          name: "é obrigatório",
-          message: "não pode ultrapassar 140 caracteres"
+          name: "can't be blank",
+          message: "should be at most 140 characters"
         }
       })
   end

@@ -10,8 +10,7 @@ defmodule Finances.Category do
     timestamps
   end
 
-  @required_fields ~w(wallet_id name)
-  @optional_fields ~w()
+  @required_fields [:wallet_id, :name]
 
   @doc """
   Creates a changeset based on the `model` and `params`.
@@ -19,9 +18,10 @@ defmodule Finances.Category do
   If no params are provided, an invalid changeset is returned
   with no validation performed.
   """
-  def changeset(model, params \\ :empty) do
+  def changeset(model, params \\ %{}) do
     model
-    |> cast(params, @required_fields, @optional_fields)
+    |> cast(params, @required_fields)
+    |> validate_required(@required_fields)
     |> validate_length(:name, min: 2)
   end
 

@@ -21,7 +21,7 @@ defmodule Finances.ChannelCase do
       use Phoenix.ChannelTest
 
       alias Finances.Repo
-      import Ecto.Model
+      import Ecto
       import Ecto.Query, only: [from: 2]
       import GenericTestHelper
 

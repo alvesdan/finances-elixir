@@ -6,7 +6,7 @@ defmodule Finances.Repo.Migrations.CreateExpense do
       add :wallet_id, :integer
       add :category_id, :integer
       add :amount, :decimal
-      add :spent_at, :datetime
+      add :spent_at, :utc_datetime
       add :notes, :string
       timestamps
     end
