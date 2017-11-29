@@ -36,7 +36,7 @@ config :phoenix, :stacktrace_depth, 20
 config :finances, Finances.Repo,
   adapter: Ecto.Adapters.Postgres,
   username: "postgres",
-  password: "postgres",
+  password: "",
   database: "finances_dev",
   hostname: "localhost",
   pool_size: 10

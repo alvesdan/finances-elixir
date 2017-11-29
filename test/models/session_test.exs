@@ -23,7 +23,7 @@ defmodule Finances.SessionTest do
   end
 
   test "#create_for with user returns a new valid session" do
-    user = create_test_user
+    user = create_test_user()
     {:ok, session} = Session.create_for(user)
 
     assert session.expires_at != nil
@@ -31,7 +31,7 @@ defmodule Finances.SessionTest do
   end
 
   test "#find_or_create_for with a valid session returns the existing one" do
-    user = create_test_user
+    user = create_test_user()
     {:ok, session} = Session.create_for(user)
 
     assert Session.find_or_create_for(user) == {:ok, session}

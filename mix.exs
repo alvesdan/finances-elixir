@@ -9,8 +9,8 @@ defmodule Finances.Mixfile do
      compilers: [:phoenix] ++ Mix.compilers,
      build_embedded: Mix.env == :prod,
      start_permanent: Mix.env == :prod,
-     aliases: aliases,
-     deps: deps]
+     aliases: aliases(),
+     deps: deps()]
   end
 
   # Configuration for the OTP application.
@@ -19,7 +19,7 @@ defmodule Finances.Mixfile do
   def application do
     [mod: {Finances, []},
      applications: [:phoenix, :phoenix_html, :cowboy, :logger,
-                    :phoenix_ecto, :postgrex]]
+                    :phoenix_ecto, :postgrex, :timex]]
   end
 
   # Specifies which paths to compile per environment.
@@ -30,13 +30,15 @@ defmodule Finances.Mixfile do
   #
   # Type `mix help deps` for examples and options.
   defp deps do
-    [{:phoenix, "~> 1.2"},
-     {:phoenix_ecto, "~> 3.2"},
-     {:postgrex, ">= 0.0.0"},
-     {:phoenix_html, "~> 2.3"},
-     {:phoenix_live_reload, "~> 1.0", only: :dev},
-     {:cowboy, "~> 1.0"},
-     {:comeonin, "~> 2.3"}]
+    [{:phoenix, "~> 1.3"},
+     {:phoenix_ecto, "~> 3.3"},
+     {:postgrex, "~> 0.12"},
+     {:phoenix_html, ">= 2.0.0"},
+     {:phoenix_live_reload, "~> 1.1", only: :dev},
+     {:cowboy, ">= 1.0.0"},
+     {:comeonin, ">= 4.0.0"},
+     {:bcrypt_elixir, ">= 1.0.0"},
+     {:timex, "~> 3.1"}]
   end
 
   # Aliases are shortcut or tasks specific to the current project.

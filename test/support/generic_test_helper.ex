@@ -16,7 +16,7 @@ defmodule GenericTestHelper do
   end
 
   def create_valid_session_for_test_user do
-    user = create_test_user
+    user = create_test_user()
     create_valid_session_for(user)
   end
 

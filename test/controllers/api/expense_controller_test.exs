@@ -5,7 +5,7 @@ defmodule ExpenseControllerTest do
   @valid_attrs %{amount: 5, spent_at: "2016-04-17 14:00:00"}
 
   setup do
-    session = create_valid_session_for_test_user
+    session = create_valid_session_for_test_user()
     wallet = Wallet.changeset(
       %Wallet{}, %{
         name: "Test Wallet",
@@ -41,7 +41,7 @@ defmodule ExpenseControllerTest do
     assert json_response(conn, 200) == %{"expenses" => [%{
       "id" => expense.id,
       "amount" => "10.5",
-      "spent_at" => "2016-04-17T14:00:00",
+      "spent_at" => "2016-04-17T14:00:00.000000",
       "notes" => "Test Expense",
       "category_id" => context[:category].id
     }]}
@@ -50,7 +50,7 @@ defmodule ExpenseControllerTest do
   test "creates and renders resource when data is valid", context do
     wallet_id = context[:wallet].id
     category_id = context[:category].id
-    conn = post(build_conn, "/api/wallets/#{wallet_id}/expenses",
+    conn = post(build_conn(), "/api/wallets/#{wallet_id}/expenses",
       expense: Map.put(@valid_attrs, :category_id, category_id), token: context[:token])
     body = json_response(conn, 201)
 
@@ -62,7 +62,7 @@ defmodule ExpenseControllerTest do
     wallet_id = context[:wallet].id
     expense = create_test_expense context[:wallet], context[:category]
 
-    conn = put build_conn, "/api/wallets/#{wallet_id}/expenses/#{expense.id}",
+    conn = put build_conn(), "/api/wallets/#{wallet_id}/expenses/#{expense.id}",
       expense: %{notes: "Updated expense"}, token: context[:token]
     body = json_response(conn, 200)
 
@@ -73,7 +73,7 @@ defmodule ExpenseControllerTest do
   test "deletes chosen resource", context do
     wallet_id = context[:wallet].id
     expense = create_test_expense context[:wallet], context[:category]
-    conn = delete build_conn, "/api/wallets/#{wallet_id}/expenses/#{expense.id}", token: context[:token]
+    conn = delete build_conn(), "/api/wallets/#{wallet_id}/expenses/#{expense.id}", token: context[:token]
     assert response(conn, 204)
     refute Repo.get(Expense, expense.id)
   end

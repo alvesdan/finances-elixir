@@ -4,7 +4,7 @@ defmodule Finances.Session do
   @derive {Poison.Encoder, only: [:expires_at, :token]}
   schema "sessions" do
     belongs_to :user, Finances.User
-    field :expires_at, Ecto.DateTime
+    field :expires_at, :utc_datetime
     field :token, :string
 
     timestamps
@@ -29,14 +29,14 @@ defmodule Finances.Session do
   end
 
   def valid?(%__MODULE__{expires_at: expires_at}) do
-    Ecto.DateTime.from_erl(:calendar.local_time)
-      |> Ecto.DateTime.compare(expires_at) == :lt
+    DateTime.utc_now
+    |> DateTime.compare(expires_at) == :lt
   end
 
   def find_valid_for(user) do
     query = from s in __MODULE__,
       where: s.user_id == ^user.id and
-             s.expires_at > ^Ecto.DateTime.from_erl(:calendar.local_time),
+             s.expires_at > ^DateTime.utc_now,
       select: s
 
     query |> Finances.Repo.all |> List.last
@@ -69,10 +69,7 @@ defmodule Finances.Session do
   end
 
   defp generate_expires_at do
-    :calendar.local_time
-      |> :calendar.datetime_to_gregorian_seconds
-      |> Kernel.+(21_600)
-      |> :calendar.gregorian_seconds_to_datetime
-      |> Ecto.DateTime.from_erl
+    Timex.now
+      |> Timex.shift(hours: 6)
   end
 end

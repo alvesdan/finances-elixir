@@ -7,7 +7,7 @@ defmodule Finances.Expense do
     belongs_to :wallet, Finances.Wallet
     belongs_to :category, Finances.Category
     field :amount, :decimal
-    field :spent_at, Ecto.DateTime
+    field :spent_at, :naive_datetime
     field :notes, :string
     timestamps
   end
